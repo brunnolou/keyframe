@@ -1,6 +1,6 @@
 {
   "name": "keyframe",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A simple keyframe utility for custom animation",
   "main": "index.js",
   "scripts": {
