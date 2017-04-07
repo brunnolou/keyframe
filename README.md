@@ -3,7 +3,7 @@
 ### A simple keyframe utility for custom animation.
 
 ## Install
-`npm install Keyframe`
+`npm install keyframe`
 
 ## Usage
 The first parameter is an object witch every key is the keyframe.
