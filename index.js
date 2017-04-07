@@ -1,23 +1,42 @@
+const sort = (a, b) => a > b;
+const toFloat = x => parseFloat(x, 10);
+const noop = () => {};
+
 function keyframe(frames, time) {
-  if (time > 1) return 100;
+  if (time > 1) return noop;
 
   const timeKey = time * 100;
-  const keys = Object.keys(frames).sort();
+  let keysNumber = Object.keys(frames).map(toFloat).sort(sort);
 
-  const currentFrameKey = keys.filter((frame, index) => {
-    const nextFrame = keys[index + 1] || 100;
+  if (frames[0] === undefined) {
+    // When frame zero not defined call the next at position zero.
+    frames[0] = frames[keysNumber[0]];
+    if (time === 0) return frames[0](0, time);
 
-    return timeKey > frame && timeKey <= nextFrame;
-  }).pop();
-
-  const nextFrameKey = keys.findIndex(x => x === currentFrameKey) + 1;
-  const keyCallback = frames[currentFrameKey];
-
-  if (nextFrameKey && keyCallback) {
-    keyCallback((timeKey - currentFrameKey) / ((keys[nextFrameKey] || 100) - currentFrameKey));
+    keysNumber = [0, ...keysNumber];
+  } else {
+    // When the frame zero exists call it with full progress.
+    if (time === 0) return frames[0](1, time);
   }
 
-  return currentFrameKey || null;
+  let currentFrameKey;
+  let prevFrameKey;
+  let progress = 0;
+
+  keysNumber.forEach((frame, index) => {
+    const nextFrame = keysNumber[index + 1];
+
+    if (timeKey > frame && timeKey <= nextFrame) {
+      currentFrameKey = nextFrame;
+      prevFrameKey = frame;
+    }
+  });
+
+  const keyCallback = frames[currentFrameKey];
+
+  progress = ((timeKey - prevFrameKey) / (currentFrameKey - prevFrameKey));
+
+  return keyCallback(progress, time);
 }
 
 module.exports = keyframe;

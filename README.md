@@ -6,6 +6,16 @@
 `npm install Keyframe`
 
 ## Usage
+The first parameter is an object witch every key is the keyframe.
+Each keyframe is a function that will be called every time during the keyframe interval.
+```js
+  keyframe({
+    50: (d) => update(d),
+    100: (d) => update(d),
+  }, progress);
+```
+
+
 ```js
 import keyframe from '../';
 
@@ -22,10 +32,10 @@ function update() {
   // then from (50% -> 100%) move the div down 100px.
   keyframe({
     // d is the duration between 0% -> 50%.
-    0: (d) => moveTo(d * 100, 0),
+    50: (d) => moveTo(d * 100, 0),
 
     // d is the duration between 50% -> 100%.
-    50: (d) => moveTo(100, d * 100),
+    100: (d) => moveTo(100, d * 100),
   }, progress);
 
   i++;
@@ -36,7 +46,14 @@ function update() {
 requestAnimationFrame(update);
 ```
 
+Check the `src/` to see a full example.
+![](https://i.giphy.com/3og0IDzUJgxSBkwCbu.gif)
+
+
 ## Development
 `npm install`
 
 `npm start`
+
+## Test
+`npm test`
