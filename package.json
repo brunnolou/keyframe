@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "neutrino start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "neutrino test"
   },
   "keywords": [
     "animation",
@@ -19,13 +19,15 @@
   "license": "MIT",
   "devDependencies": {
     "neutrino": "^4.3.1",
-    "neutrino-preset-web": "^4.2.3",
-    "neutrino-preset-node": "^4.2.2"
+    "neutrino-preset-jest": "^4.*",
+    "neutrino-preset-node": "^4.2.2",
+    "neutrino-preset-web": "^4.2.3"
   },
   "config": {
     "neutrino": {},
     "presets": [
       "neutrino-preset-web",
+      "neutrino-preset-jest",
       "neutrino.config.js"
     ]
   },
