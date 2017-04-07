@@ -21,10 +21,10 @@ function update() {
   // then from (50% -> 100%) move the div down 100px.
   keyframe({
     // d is the duration between 0% -> 50%.
-    0: (d) => moveTo(d * 100, 0),
+    50: (d) => moveTo(d * 100, 0),
 
     // d is the duration between 50% -> 100%.
-    50: (d) => moveTo(100, d * 100),
+    100: (d) => moveTo(100, d * 100),
   }, progress);
 
   i++;
