@@ -1,6 +1,7 @@
 # Keyframe
 
 ### A simple keyframe utility for custom animation.
+[![npm version](https://badge.fury.io/js/keyframe.svg)](https://badge.fury.io/js/keyframe)
 
 ## Install
 `npm install keyframe`
