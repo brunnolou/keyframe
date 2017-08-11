@@ -1,0 +1,21 @@
+body {
+	font-family: sans-serif;
+	margin: 3rem;
+}
+
+div {
+	max-width: 10rem;
+}
+
+.bar {
+	background: #999;
+  height: 2rem;
+  width: 10rem;
+  margin-bottom: 1px;
+  transform-origin: 0 0;
+}
+
+input[type=range] {
+	width: 10rem;
+	margin: 1rem 0 6rem;
+}
