@@ -1,8 +1,8 @@
 {
   "name": "keyframe",
-  "version": "1.1.0",
-	"description": "A simple keyframe utility for custom animation",
-	"homepage": "https://github.com/brunnolou/keyframe",
+  "version": "2.0.0",
+  "description": "A simple keyframe utility for custom animation",
+  "homepage": "https://github.com/brunnolou/keyframe#readme",
   "main": "lib/index.js",
   "scripts": {
     "dev": "neutrino start",
@@ -40,6 +40,5 @@
   },
   "bugs": {
     "url": "https://github.com/brunnolou/keyframe/issues"
-  },
-  "homepage": "https://github.com/brunnolou/keyframe#readme"
+  }
 }
