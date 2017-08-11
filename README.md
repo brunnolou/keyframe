@@ -2,59 +2,70 @@
 
 ### A simple keyframe utility for custom animation.
 [![npm version](https://badge.fury.io/js/keyframe.svg)](https://badge.fury.io/js/keyframe)
+![](https://david-dm.org/brunnolou/keyframe.svg)
+![](https://img.shields.io/github/size/brunnolou/keyframe/lib/index.min.js.svg)
 
 ## Install
-`npm install keyframe`
+`npm install --save keyframe`
+
+or
+
+`yarn add keyframe`
 
 ## Usage
-The first parameter is an object witch every key is the keyframe.
+Pass an object witch every key is the keyframe from `0` to `100`.
+
 Each keyframe is a function that will be called every time during the keyframe interval.
+
+And will return a function, **cacheable** that **runs only once** when the value is the same, to run through the keyframes progress.
+
 ```js
-  keyframe({
-    50: (d) => update(d),
-    100: (d) => update(d),
-  }, progress);
+const run = keyframe({
+  50: (d) => update(d),
+  100: (d) => update(d),
+});
+
+run(0);    // 0
+run(0.25); // 0.5
+run(0.5);  // 1
+run(0.75); // 0.5
+run(1);    // 1
 ```
 
-
+## Example
 ```js
-import keyframe from '../';
+import keyframe from 'keyframe';
 
 ...
 
-let i = 0;
-let progress = 0;
-const duration = 2 * 60;
+const moveTo = (x, y) => {
+  div.style.transform = `translate(${x}px, ${y}px)`;
+};
 
-function update() {
-  progress = i / duration;
+// From (0% -> 50%) move the div left 150px
+// then from (50% -> 100%) move the div up 50px.
+const onSliderUpdate = keyframe({
+  // d is the duration between 0% -> 50%.
+  50: d => moveTo(d * 150, 0),
 
-  // From (0% -> 50%) move the div left 100px
-  // then from (50% -> 100%) move the div down 100px.
-  keyframe({
-    // d is the duration between 0% -> 50%.
-    50: (d) => moveTo(d * 100, 0),
+  // d is the duration between 50% -> 100%.
+  100: d => moveTo(150, d * -50),
+});
 
-    // d is the duration between 50% -> 100%.
-    100: (d) => moveTo(100, d * 100),
-  }, progress);
+// Return range between 0 and 1.
+DOMslider.addEventListener('input', () => onSliderUpdate(slider.value / 100), true);
 
-  i++;
-
-  requestAnimationFrame(update);
-}
-
-requestAnimationFrame(update);
 ```
 
-Check the `src/` to see a full example.
+Check the `example/` folder to see a full example.
+
 ![](https://i.giphy.com/3og0IDzUJgxSBkwCbu.gif)
 
 
 ## Development
-`npm install`
+`yarn install`
 
-`npm start`
+`yarn run dev`
 
 ## Test
-`npm test`
+`yarn test`
