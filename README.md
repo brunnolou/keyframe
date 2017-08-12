@@ -1,9 +1,10 @@
 # Keyframe
 
-### A simple keyframe utility for custom animation.
-[![npm version](https://badge.fury.io/js/keyframe.svg)](https://badge.fury.io/js/keyframe)
-![](https://david-dm.org/brunnolou/keyframe.svg)
+### A simple tiny keyframe utility for custom animation.
+[![npm version](https://badge.fury.io/js/keyframe.svg?v2)](https://badge.fury.io/js/keyframe)
+![0 dependencies](https://david-dm.org/brunnolou/keyframe.svg)
 ![](https://img.shields.io/github/size/brunnolou/keyframe/lib/index.min.js.svg)
+
 
 ## Install
 `npm install --save keyframe`
@@ -15,9 +16,9 @@ or
 ## Usage
 Pass an object witch every key is the keyframe from `0` to `100`.
 
-Each keyframe is a function that will be called every time during the keyframe interval.
+Each keyframe is a function that will be called during the keyframe interval. Each passed function is **cached** and **runs only once** when the value is the same.
 
-And will return a function, **cacheable** that **runs only once** when the value is the same, to run through the keyframes progress.
+And will return a function to run through the keyframes progress.
 
 ```js
 const run = keyframe({
@@ -57,9 +58,11 @@ DOMslider.addEventListener('input', () => onSliderUpdate(slider.value / 100), tr
 
 ```
 
-Check the `example/` folder to see a full example.
+Check the `examples/` folder to see full examples.
 
-![](https://i.giphy.com/3og0IDzUJgxSBkwCbu.gif)
+Or check out the [DEMO](https://brunnolou.github.io/keyframe/) page
+
+[![](https://i.giphy.com/xT39D7ALjvyjoqLU0U.gif)](https://brunnolou.github.io/keyframe/)
 
 
 ## Development
