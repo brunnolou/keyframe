@@ -47,7 +47,7 @@ const interpolate = (input, output, rangeEasing) => {
     let i = 1;
 
     // Find index of range start
-    for (; i < rangeLength; i++) {
+    for (; i < rangeLength; i += 1) {
       if (input[i] > v || i === finalIndex) {
         break;
       }
@@ -66,24 +66,28 @@ const interpolate = (input, output, rangeEasing) => {
  */
 export default function keyframes(originalFrames) {
   const frames = Object.assign({}, originalFrames);
+  let noZero = false;
 
-  if (!frames[0]) frames[0] = noop;
+  if (!frames[0]) {
+    noZero = true;
+    frames[0] = noop;
+  }
 
-  Object.keys(frames).forEach((key) => {
+  const framesArray = Object.keys(frames);
+
+  framesArray.forEach((key) => {
     const func = frames[key];
 
     frames[key] = onceDifferent(func);
   });
 
-  let keysNumbers = Object.keys(frames).map(toFloat);
+  let keysNumbers = framesArray.map(toFloat);
 
   keysNumbers = [...keysNumbers, ...keysNumbers].sort(sort).slice(1, Infinity);
 
   const chucks = chunk2(keysNumbers);
 
   const caller = (progress) => {
-    const x = interpolate([0, 1], [0, 100])(progress);
-
     // When 0 is present considered it done like the initial state similar to css keyframes.
     frames[0](1);
 
@@ -96,8 +100,11 @@ export default function keyframes(originalFrames) {
       const func = frames[chunk[1]];
       const interpolatedValue = interpolate([chunk[0], chunk[1]], [0, 1]);
 
-      func(interpolatedValue(x));
+      func(interpolatedValue(progress * 100));
     });
+
+    if (progress < 0) frames[framesArray[noZero ? 1 : 0]](progress);
+    if (progress > 1) frames[framesArray[framesArray.length - 1]](progress);
   };
 
   return caller;
